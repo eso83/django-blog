@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+  </head>
+  <body>
+    <h2>welcom {{ request.user.username }}</h2>
+    <a href="{% url 'signout' %}">signOut</a>
+    <button><a href="{% url 'createPost' %}">createPost</a></button>
+    <button><a href="{% url 'profile' %}">profile</a></button>
+    <div>
+      {% for post in posts %}
+      <h2>{{post.title}}</h2>
+      <p>{{post.content}}</p>
+      <small>By {{post.author.username}}-{{post.created_at}}</small>
+    </div>
+    {% empty %}
+    <p>no posts yet.</p>
+    {% endfor %}
+  </body>
+</html>

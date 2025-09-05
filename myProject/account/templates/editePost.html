@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>editePost</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input name="title" type="text" placeholder="{{post.title}}" required />
+      <input
+        name="content"
+        type="text"
+        placeholder="{{post.content}}"
+        required
+      />
+      <button type="submit">save</button>
+    </form>
+  </body>
+</html>
