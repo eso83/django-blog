@@ -4,17 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>signIn</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
   </head>
   <body>
-    <h1>create your account</h1>
-    <form method="post">
-      {% csrf_token %}
-      <input type="text" name="user_name" placeholder="enter username" />
-      <input type="text" name="password" placeholder="enter password" />
-      <button type="submit">signup</button>
-    </form>
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
+    <div class="container">
+      <h1>signup</h1>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="user_name" placeholder="enter username" />
+        <input type="text" name="password" placeholder="enter password" />
+        <button type="submit">signup</button>
+      </form>
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
   </body>
 </html>

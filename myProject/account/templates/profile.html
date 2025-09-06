@@ -3,27 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'account/css/pageStyle.css' %}" />
     <title>Document</title>
   </head>
   <body>
-    <h1>{{ request.user.username}}</h1>
-    {% if posts %}
-    <p>this is your posts</p>
-    {% else %}
-    <p>you dont have a post yet!</p>
-
-    {% endif %}
-    <div>
+    <nav class="navbar">
+      <div class="logo">MyBlog</div>
+      <ul class="nav-links">
+        <li><a href="{% url 'signout' %}">SignOut</a></li>
+        <li>><a href="{% url 'createPost' %}">createPost</a></li>
+        <li><a href="{% url 'home' %}">Home</a></li>
+      </ul>
+    </nav>
+    <div class="info">
+      <h1>{{ request.user.username}}</h1>
+      {% if posts %}
+      <h2>this is your posts</h2>
+      {% else %}
+      <h2>you dont have a post yet!</h2>
+      {% endif %}
+    </div>
+    <div class="post-list">
       {% for post in posts %}
-      <h2>{{post.title}}</h2>
-      <p>{{post.content}}</p>
-      <small>By {{post.author.username}}-{{post.created_at}}</small>
-      <button><a href="{% url 'editePost' post.id %}">edite</a></button>
-      <form method="post" action="{% url 'deletePost' post.id %}">
-        {% csrf_token %}
-        <button type="submit">delete</button>
-      </form>
-      <hr />
+      <div class="post">
+        <h2>{{post.title}}</h2>
+        <p>{{post.content}}</p>
+        <small>By {{post.author.username}}-{{post.created_at}}</small>
+        <div class="btn-container">
+          <button><a href="{% url 'editePost' post.id %}">edite</a></button>
+          <form method="post" action="{% url 'deletePost' post.id %}">
+            {% csrf_token %}
+            <button type="submit">delete</button>
+          </form>
+        </div>
+      </div>
+
       {% endfor %}
     </div>
 

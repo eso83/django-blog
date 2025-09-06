@@ -4,17 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Post</title>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
   </head>
   <body>
-    <form method="post">
-      {% csrf_token %}
-      <input type="text" name="title" placeholder="post title" required />
-      <textarea
-        name="content"
-        placeholder="write something..."
-        required
-      ></textarea>
-      <button type="submit">Create</button>
-    </form>
+    <nav class="navbar">
+      <div class="logo">MyBlog</div>
+      <ul class="nav-links">
+        <li><a href="{% url 'signout' %}">SignOut</a></li>
+        <li>><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>create-post</h1>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="post title" required />
+        <input
+          type="text"
+          name="content"
+          placeholder="write content ..."
+          required
+        ></input>
+        <button type="submit">Create</button>
+      </form>
+    </div>
   </body>
 </html>

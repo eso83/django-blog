@@ -4,18 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>editePost</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
   </head>
   <body>
-    <form method="post">
-      {% csrf_token %}
-      <input name="title" type="text" placeholder="{{post.title}}" required />
-      <input
-        name="content"
-        type="text"
-        placeholder="{{post.content}}"
-        required
-      />
-      <button type="submit">save</button>
-    </form>
+    <nav class="navbar">
+      <div class="logo">MyBlog</div>
+      <ul class="nav-links">
+        <li><a href="{% url 'signout' %}">SignOut</a></li>
+        <li>><a href="{% url 'createPost' %}">createPost</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>edite-post</h1>
+      <form method="post">
+        {% csrf_token %}
+        <input name="title" type="text" placeholder="{{post.title}}" required />
+        <input
+          name="content"
+          type="text"
+          placeholder="{{post.content}}"
+          required
+        />
+        <button type="submit">save</button>
+      </form>
+    </div>
   </body>
 </html>
