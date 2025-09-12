@@ -9,17 +9,30 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logo">MyBlog</div>
+      <img class="profilepic" src="{{ user.profile.avatar.url }}" />
       <ul class="nav-links">
         <li><a href="{% url 'signout' %}">SignOut</a></li>
         <li>><a href="{% url 'createPost' %}">createPost</a></li>
         <li><a href="{% url 'profile' %}">Profile</a></li>
       </ul>
     </nav>
+    {% if posts %}
     <h1>All Posts</h1>
+    {% else %}
+    <h1>there is no post</h1>
+    {% endif %}
     <div class="post-list">
       {% for post in posts %}
       <div class="post">
+        <img
+          src="{{post.author.profile.avatar.url}}"
+          style="
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+          "
+        />
         <h2>{{ post.title }}</h2>
         <p>{{ post.content }}</p>
         <small>By {{ post.author.username }} - {{ post.created_at }}</small>

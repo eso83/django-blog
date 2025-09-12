@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Post
+from .forms import ProfileForm
+
 
 # Create your views here.
 
@@ -94,3 +96,17 @@ def edite_post(request, post_id):
         massages.error(request, 'you cant delete post!')
         return redirect('home')
     return render(request, 'editePost.html', {'post': post})
+
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated.")
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'editProfile.html', {'form': form})

@@ -9,20 +9,20 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logo">MyBlog</div>
+      <img class="profilepic" src="{{ user.profile.avatar.url }}" alt="" />
       <ul class="nav-links">
         <li><a href="{% url 'signout' %}">SignOut</a></li>
         <li>><a href="{% url 'createPost' %}">createPost</a></li>
         <li><a href="{% url 'home' %}">Home</a></li>
       </ul>
     </nav>
-    <div class="info">
+
+    <div class="showProfile">
+      <img src="{{ user.profile.avatar.url }}" />
+      <p>bio:{{user.profile.bio}}</p>
       <h1>{{ request.user.username}}</h1>
-      {% if posts %}
-      <h2>this is your posts</h2>
-      {% else %}
-      <h2>you dont have a post yet!</h2>
-      {% endif %}
+      <h2>posts:{{posts|length }}</h2>
+      <button><a href="{% url 'editProfile' %}">editProfile</a></button>
     </div>
     <div class="post-list">
       {% for post in posts %}

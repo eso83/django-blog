@@ -40,16 +40,12 @@ form button:hover {
 .navbar {
   background: #007bff;
   color: white;
-  padding: 15px 30px;
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar .logo {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .navbar .nav-links {

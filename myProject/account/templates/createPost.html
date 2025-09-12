@@ -8,9 +8,12 @@
     
     <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
   </head>
-  <body>
+  <body class="createPostPage">
     <nav class="navbar">
-      <div class="logo">MyBlog</div>
+      <img class="profilepic" src="{{ user.profile.avatar.url }}"  style="width: 50px !important;
+  height: 50px !important;
+  border-radius: 50%;
+  object-fit: cover;"/>
       <ul class="nav-links">
         <li><a href="{% url 'signout' %}">SignOut</a></li>
         <li>><a href="{% url 'home' %}">Home</a></li>

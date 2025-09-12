@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>edit profile</title>
+  </head>
+  <body>
+    <h1>Edit profile</h1>
+
+    {% if request.user.profile.avatar %}
+    <img
+      src="{{ request.user.profile.avatar.url }}"
+      alt="avatar"
+      width="120"
+      height="120"
+    />
+    {% else %}
+    <img
+      src="{% static 'account/images/default.jpg' %}"
+      alt="default avatar"
+      width="120"
+    />
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </body>
+</html>
