@@ -65,3 +65,9 @@ form button:hover {
 .navbar .nav-links li a:hover {
   text-decoration: underline;
 }
+.profilepic {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}

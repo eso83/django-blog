@@ -9,9 +9,13 @@ class Post(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    like = models.ManyToManyField(User, related_name="post_like", blank=True)
 
     def __str__(self):
         return self.title
+
+    def total_likes(self):
+        return self.like.count()    
 
 
 class Profile(models.Model):

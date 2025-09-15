@@ -1,26 +1,32 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>edit profile</title>
-  </head>
-  <body>
-    <h1>Edit profile</h1>
+{% extends "base.html" %} 
+{% block title %}edite-profile{% endblock %}
+{% block extra_css %}
+ {% load static %}
+  <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
+{% endblock extra_css %}
+{% block navbar_links %}
+ <li><a href="{% url 'signout' %}">SignOut</a></li>
+ <li><a href="{% url 'profile' %}">Profile</a></li>
+ <li>><a href="{% url 'home' %}">Home</a></li>
+{% endblock navbar_links %}
+{% block content %} 
+  <h1>Edit profile</h1>
 
     {% if request.user.profile.avatar %}
     <img
       src="{{ request.user.profile.avatar.url }}"
       alt="avatar"
-      width="120"
-      height="120"
+      style="width: 120px;
+      height: 120px;
+      border-radius: 50%;"
     />
     {% else %}
     <img
       src="{% static 'account/images/default.jpg' %}"
       alt="default avatar"
-      width="120"
+      style="width: 120px;
+      height: 120px;
+      border-radius: 50%;"
     />
     {% endif %}
 
@@ -32,5 +38,4 @@
     {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %}
-  </body>
-</html>
+{% endblock %}

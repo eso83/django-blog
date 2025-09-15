@@ -1,31 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>editePost</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
-  </head>
-  <body>
-    <nav class="navbar">
-      <img
-        class="profilepic"
-        src="{{ user.profile.avatar.url }}"
-        style="
-          width: 50px !important;
-          height: 50px !important;
-          border-radius: 50%;
-          object-fit: cover;
-        "
-      />
-      <ul class="nav-links">
-        <li><a href="{% url 'signout' %}">SignOut</a></li>
-        <li>><a href="{% url 'createPost' %}">createPost</a></li>
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-      </ul>
-    </nav>
-    <div class="container">
+{% extends "base.html" %} 
+{% block title %}edite{% endblock %}
+{% block extra_css %}
+ {% load static %}
+  <link rel="stylesheet" href="{% static 'account/css/inputStyle.css' %}" />
+{% endblock extra_css %}
+{% block navbar_links %}
+ <li><a href="{% url 'signout' %}">SignOut</a></li>
+ <li><a href="{% url 'profile' %}">Profile</a></li>
+ <li>><a href="{% url 'home' %}">Home</a></li>
+{% endblock navbar_links %}
+{% block content %} 
+  <div class="container">
       <h1>edite-post</h1>
       <form method="post">
         {% csrf_token %}
@@ -39,5 +24,4 @@
         <button type="submit">save</button>
       </form>
     </div>
-  </body>
-</html>
+{% endblock %}

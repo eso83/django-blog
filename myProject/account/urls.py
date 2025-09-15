@@ -14,8 +14,6 @@ urlpatterns = [
     path('editProfile/', views.edit_profile, name="editProfile"),
     path('delete/<int:post_id>/', views.delete_post, name="deletePost"),
     path('edite/<int:post_id>/', views.edite_post, name="editePost"),
+    path('like/<int:post_id>/', views.post_like, name="postLike"),
 
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)

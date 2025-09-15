@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'account/css/pageStyle.css' %}" />
-    <title>Document</title>
-  </head>
-  <body>
-    <nav class="navbar">
-      <img class="profilepic" src="{{ user.profile.avatar.url }}" alt="" />
-      <ul class="nav-links">
-        <li><a href="{% url 'signout' %}">SignOut</a></li>
-        <li>><a href="{% url 'createPost' %}">createPost</a></li>
-        <li><a href="{% url 'home' %}">Home</a></li>
-      </ul>
-    </nav>
-
-    <div class="showProfile">
+{% extends "base.html" %} 
+{% block title %}Profile{% endblock %}
+{% block navbar_links %}
+<li><a href="{% url 'signout' %}">SignOut</a></li>
+<li><a href="{% url 'createPost' %}">Create Post</a></li>
+<li><a href="{% url 'home' %}">Home</a></li>
+{% endblock navbar_links %}
+{% block content %} 
+<div class="showProfile">
       <img src="{{ user.profile.avatar.url }}" />
       <p>bio:{{user.profile.bio}}</p>
       <h1>{{ request.user.username}}</h1>
@@ -29,6 +18,7 @@
       <div class="post">
         <h2>{{post.title}}</h2>
         <p>{{post.content}}</p>
+        <p>{{ post.total_likes }} ❤️</p>
         <small>By {{post.author.username}}-{{post.created_at}}</small>
         <div class="btn-container">
           <button><a href="{% url 'editePost' post.id %}">edite</a></button>
@@ -41,9 +31,4 @@
 
       {% endfor %}
     </div>
-
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-  </body>
-</html>
+{% endblock %}

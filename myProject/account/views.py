@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -110,3 +111,17 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'editProfile.html', {'form': form})
+
+
+def post_like(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post = Post.objects.get(id=post_id)
+    if request.user in post.like.all():
+        post.like.remove(request.user)
+        messages.success(request, "your like has been removed")
+
+    else:
+        post.like.add(request.user)
+        messages.success(request, "you like this post")
+
+    return redirect('home')
