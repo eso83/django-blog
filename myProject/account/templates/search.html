@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %}
+{% block navbar_links %}
+<li><a href="{% url 'signout' %}">SignOut</a></li>
+<li><a href="{% url 'profile' %}">Profile</a></li>
+<li><a href="{% url 'home' %}">Home</a></li>
+{% endblock navbar_links %}
+{% block content %} 
+<form method="get" class="search_bar">
+  {{ form.as_p }}
+  <button type="submit">search</button>
+</form>
+
+<ul class="user_list">
+  {% for user in users %}
+    <li class="user">
+      <h3>{{ user.username }}</h3>
+      <img src="{{ user.profile.avatar.url }}"/>
+    <a href="{% url 'usersPosts' user.username %}">
+        <button>view</button>
+      </a>
+    </li>
+  {% empty %}
+    <li>empty</li>
+  {% endfor %}
+</ul>
+
+</div>
+{% endblock %}

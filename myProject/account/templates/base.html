@@ -10,7 +10,7 @@
   </head>
   <body>
     <nav class="navbar">
-      <img class="profilepic" src="{{ user.profile.avatar.url }}" />
+      <img class="profilepic" src="{{ request.user.profile.avatar.url }}" />
       <ul class="nav-links">
         {% block navbar_links %}
         <li><a href="{% url 'signout' %}">SignOut</a></li>

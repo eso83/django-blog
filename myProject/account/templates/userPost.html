@@ -1,19 +1,29 @@
 {% extends "base.html" %} 
-{% block title %}Profile{% endblock %}
+{% block title %}{user.username} profile{% endblock %}
 {% block navbar_links %}
 <li><a href="{% url 'signout' %}">SignOut</a></li>
-<li><a href="{% url 'createPost' %}">Create Post</a></li>
+<li><a href="{% url 'profile' %}">Profile</a></li>
 <li><a href="{% url 'home' %}">Home</a></li>
 {% endblock navbar_links %}
 {% block content %} 
 <div class="showProfile">
       <img src="{{ user.profile.avatar.url }}" />
       <p>bio:{{user.profile.bio}}</p>
-      <h1>{{ request.user.username}}</h1>
+      <h1>{{user.username}}</h1>
       <p>Followers: {{ user.followers.count }}</p>
       <p>Following: {{ user.profile.following.count }}</p>
       <p>posts:{{posts|length }}</p>
-      <button><a href="{% url 'editProfile' %}">editProfile</a></button>
+  {% if user != request.user %}
+     {% if user in request.user.profile.following.all %}
+     <button>
+      <a href="{% url 'follow_unfollow' user.id %}">Unfollow</a>
+      </button>
+     {% else %}
+     <button>
+      <a href="{% url 'follow_unfollow' user.id %}">Follow</a>
+      </button>
+    {% endif %}
+  {% endif %}
     </div>
     <div class="post-list">
       {% for post in posts %}
@@ -23,11 +33,7 @@
         <p>{{ post.total_likes }} ❤️</p>
         <small>By {{post.author.username}}-{{post.created_at}}</small>
         <div class="btn-container">
-          <button><a href="{% url 'editePost' post.id %}">edite</a></button>
-          <form method="post" action="{% url 'deletePost' post.id %}">
-            {% csrf_token %}
-            <button type="submit">delete</button>
-          </form>
+         
         </div>
       </div>
 

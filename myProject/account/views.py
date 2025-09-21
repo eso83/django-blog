@@ -6,8 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Post
-from .forms import ProfileForm
-
+from .forms import ProfileForm,UserSearchForm
 
 # Create your views here.
 
@@ -125,3 +124,28 @@ def post_like(request, post_id):
         messages.success(request, "you like this post")
 
     return redirect('home')
+
+def search_view(request):
+    form=UserSearchForm(request.GET)
+    users=[]
+    if form.is_valid():
+        query=form.cleaned_data['query']
+        users=User.objects.filter(username__icontains=query)
+    return render(request, 'search.html', {'form': form, 'users': users})
+
+def users_posts_view(request,username):
+    user=get_object_or_404(User,username=username)
+    posts=Post.objects.filter(author=user)
+    return render(request,'userPost.html',{'user':user,'posts':posts})
+
+@login_required
+def follow_unfollow(request, user_id):
+    target_user = get_object_or_404(User, id=user_id)
+    profile = request.user.profile
+
+    if target_user in profile.following.all():
+        profile.following.remove(target_user)  
+    else:
+        profile.following.add(target_user)     
+
+    return redirect('usersPosts', username=target_user.username)

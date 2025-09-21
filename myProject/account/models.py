@@ -23,6 +23,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to='avatars/', default='avatars/default.jpg')
     bio = models.TextField(blank=True)
+    following = models.ManyToManyField(User, related_name="followers", blank=True)
 
     def __str__(self):
         return f"{self.user.username} Profile"
